@@ -7,11 +7,15 @@
 </head>
     <body>
 <!-- createがはいります--------------------- -->
-
-
-
-
-
+<form action="{{route('tasks.store')}}" method="POST">
+    @csrf
+    <label for="taskName">タイトル</label>
+        <input type="text" name="name" id="taskName">
+        
+    <label for="content">詳細</label>
+        <textarea name="content" id="content"></textarea>
+    <button type="submit" >追加</button>
+</form>
         <table border="1">
             <thead>
                 <tr>
@@ -25,13 +29,17 @@
                 <tr>
                     <td>{{ $task->title }}</td>
                     <td>{{ $task->content }}</td>
-                    <td>
-                        @if ($task->is_completed)
-                            <span>完了です</span>
-                        @else
-                            <span>未完了です</span>
-                        @endif
-                    </td>
+                    <form action="" method="post">
+                    @csrf
+                    @method('PUT')
+                        <td>
+                            @if ($task->is_completed)
+                                <span>完了です</span>
+                            @else
+                                <span>未完了です</span>
+                            @endif
+                        </td>
+                    </form>
                 </tr>
                 @endforeach
             </tbody>

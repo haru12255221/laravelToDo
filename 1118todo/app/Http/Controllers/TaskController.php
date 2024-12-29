@@ -23,10 +23,10 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        Task create([
-            "name"=> $request->name,
+        Task::create([
+            "title"=> $request->name,
             "content"=> $request->content
-        ])
+        ]);
 
         return redirect()->route("tasks.index");
     }
@@ -34,23 +34,23 @@ class TaskController extends Controller
     public function edit($id){
         $tasks = Task::find($id);
 
-        return view()->route("edit.index")
+        return view()->route("tasks.index");
     }
 
     public function update(Request $request, $id)
     {
         $validate = $request->validate([
-            'name' => 'require|max:255',
+            'title' => 'require|max:255',
             'content' => 'require'
         ]);
 
         $task = Task::find0Fail($id);
 
 
-        Task update([
-            "name"=> $request->name,
-            "content"=> $request->content
-        ])
+        Task::update([
+            "title"=> $request->title,
+            "content"=> $request->content,
+        ]);
 
         return redirect()->route("tasks.index");
     }
