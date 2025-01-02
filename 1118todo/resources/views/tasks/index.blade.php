@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task</title>
 </head>
 <body>
 <!-- createがはいります--------------------- -->
@@ -12,7 +12,7 @@
         <label for="taskName">タイトル</label>
             <input type="text" name="name" id="taskName">
         <label for="content">詳細</label>
-            <textarea name="content" id="content"></textarea>
+            <textarea name="content" id="content" style="resize: none;"></textarea>
         <button type="submit" >追加</button>
     </form>
     <table border="1">
