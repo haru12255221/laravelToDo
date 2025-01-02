@@ -22,6 +22,7 @@
                 <th>詳細</th>
                 <th>完了/未完了</th>
                 <th>変更</th>
+                <th>削除</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +31,7 @@
                 <td>{{ $task->title }}</td>
                 <td>{{ $task->content }}</td>
                 <td>
-                <form action="{{route('tasks.change', ['id'=>$task->id])}}" method="post">
+                <form action="{{route('tasks.change', ['id'=>$task->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
                     @if ($task->is_completed)
@@ -38,11 +39,18 @@
                     @else
                         <span>未完了です</span>
                     @endif
-                    <button type="submit">完了</button>
+                    <button type="submit">更新</button>
                 </form>
                 </td>
                 <td>
                     <a href="{{route('tasks.edit', ['id'=>$task->id]) }}">変更</a>
+                </td>
+                <td>
+                    <form action="{{route('tasks.destroy', ['id'=>$task->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type='submit'>削除</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

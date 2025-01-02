@@ -15,5 +15,6 @@
         <textarea name="content" id="content">{{ $tasks->content }}</textarea>
     <button type="submit">更新</button>
 </form>
+<a href="{{route('tasks.index')}}">戻る</a>
 </body>
 </html>

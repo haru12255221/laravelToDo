@@ -15,4 +15,5 @@ Route::prefix('tasks')->controller(TaskController::class)->group(function() {
     Route::get('/edit/{id}','edit')->name('tasks.edit');
     Route::put('/edit/{id}', 'update')->name('tasks.update');
     Route::put('/change/{id}', 'change')->name('tasks.change');
+    Route::delete('/destroy/{id}', 'destroy')->name('tasks.destroy');
 });
