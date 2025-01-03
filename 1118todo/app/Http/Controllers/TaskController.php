@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task; // モデルの正しい名前空間をインポート
 use Illuminate\Http\Request;
 
+
 class TaskController extends Controller
 {
     public function index()
@@ -23,35 +24,58 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        Task create([
-            "name"=> $request->name,
+        Task::create([
+            "title"=> $request->name,
             "content"=> $request->content
-        ])
+        ]);
 
         return redirect()->route("tasks.index");
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $tasks = Task::find($id);
 
-        return view()->route("edit.index")
+        return view('tasks.edit', compact('tasks'));
     }
 
     public function update(Request $request, $id)
     {
         $validate = $request->validate([
-            'name' => 'require|max:255',
-            'content' => 'require'
+            'title' => 'required|max:255',
+            'content' => 'required',
         ]);
 
-        $task = Task::find0Fail($id);
+        $tasks = Task::findOrFail($id);
 
-
-        Task update([
-            "name"=> $request->name,
-            "content"=> $request->content
-        ])
+        if ($tasks) {
+            $tasks -> update([
+                "title"=> $request->title,
+                "content"=> $request->content]);
+        }
 
         return redirect()->route("tasks.index");
+    }
+
+    public function change($id){
+        $tasks = Task::find($id);
+        if (!$tasks)
+        {
+            return redirect()->back();
+        }
+
+        $tasks -> is_completed = !$tasks->is_completed;
+        $tasks -> save();
+        
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+        $tasks = Task::find($id);
+
+        $tasks->delete();
+
+        return redirect()->back();
     }
 }
